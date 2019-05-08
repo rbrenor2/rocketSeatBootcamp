@@ -1,0 +1,29 @@
+{% extends "_layouts/default.njk" %}
+
+{% block body %}
+<div class="content">
+  <strong>Hello, {{user.name}}</strong>
+  <p>These are your appointments</p>
+  <ul class='providers'>
+    {% for appointmentClient in appointmentsClients %}
+    <li class="provider">
+      <div class='clients'>
+        <img src="/files/{{ appointmentClient.user.avatar }}" />
+        <div class="nameEmail">
+          <strong>{{appointmentClient.user.name}}</strong>
+          <p>{{appointmentClient.user.email}}</p>
+          <div class="dates">
+            <p>{{appointmentClient.ap.dateFormated}}</p>
+            <strong>{{appointmentClient.ap.dateRelative}}</strong>
+          </div>
+        </div>
+
+      </div>
+      {# <a href="/app/appointments/new/{{ provider.id }}">+</a> #}
+    </li>
+    {% endfor %}
+  </ul>
+  <a href="/app/logout" class="logout">Logout</a>
+
+</div>
+{% endblock %}

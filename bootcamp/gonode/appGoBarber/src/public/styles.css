@@ -188,6 +188,7 @@ ul.providers {
   list-style: none;
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
 }
 
 .provider {
@@ -198,6 +199,24 @@ ul.providers {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.clients {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nameEmail {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-left: 50px;
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
 }
 
 .provider div {
@@ -212,6 +231,7 @@ ul.providers {
 }
 
 .provider strong {
+  /* margin-top: 15px; */
   margin-left: 15px;
   color: #444;
 }
