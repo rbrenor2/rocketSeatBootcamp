@@ -20,7 +20,9 @@ class ProjectController {
    */
   async index ({ request, response, view }) {
     try {
-      const projects = await Project.all()
+      const projects = await Project.query()
+        .with('users')
+        .fetch()
       return projects
     } catch (err) {}
   }
@@ -62,7 +64,13 @@ class ProjectController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {}
+  async show ({ params, request, response, view }) {
+    const project = await Project.findOrFail(params.id)
+    await project.load('users')
+    await project.load('tasks')
+
+    return project
+  }
 
   /**
    * Render a form to update an existing project.
@@ -83,7 +91,15 @@ class ProjectController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {}
+  async update ({ params, request, response }) {
+    const project = await Project.findOrFail(params.id)
+    const data = request.only(['title', 'description'])
+
+    project.merge(data)
+    await project.save()
+
+    return project
+  }
 
   /**
    * Delete a project with id.
@@ -93,7 +109,10 @@ class ProjectController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {}
+  async destroy ({ params }) {
+    const project = await Project.findOrFail(params.id)
+    await project.delete()
+  }
 }
 
 module.exports = ProjectController

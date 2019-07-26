@@ -26,6 +26,7 @@ Route.put('passwords', 'ForgotPasswordController.update')
 Route.group(() => {
   Route.post('files', 'FileController.store')
   Route.resource('projects', 'ProjectController').apiOnly()
+  Route.resource('projects.tasks', 'TaskController').apiOnly()
 }).middleware(['auth'])
 
 Route.get('files/:id', 'FileController.show')
